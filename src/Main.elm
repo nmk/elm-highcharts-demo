@@ -3,7 +3,6 @@ module Main exposing (..)
 import Array exposing (Array)
 import Chart exposing (..)
 import Html exposing (..)
-import Html.App as Html
 import Mouse exposing (Position)
 import Task exposing (perform)
 import Time exposing (Time, now)
@@ -36,7 +35,7 @@ update msg model =
         SetMousePosition p ->
             let
                 cmd =
-                    perform (always NoOp) (RecordMousePosition p) Time.now
+                    perform (RecordMousePosition p) Time.now
             in
                 model ! [ cmd ]
 
@@ -57,7 +56,7 @@ view =
     renderLineChart << mkChart
 
 
-main : Program Never
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
